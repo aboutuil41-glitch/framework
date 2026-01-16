@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-   <?php print_r($test)?>
+   <?= htmlspecialchars($id);?>
 </body>
 </html>

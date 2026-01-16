@@ -64,9 +64,15 @@
                     <div class="username"><?= htmlspecialchars($user['username']) ?></div>
                     <div class="email"><?= htmlspecialchars($user['email']) ?></div>
                     <div class="bio"><?= htmlspecialchars($user['bio']) ?></div>
+                    <form method="GET" action="/test/<?= $user['id'] ?>">
+    <button type="submit">Update</button>
+</form>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
+    <form method="GET "action="/users/new">
+        <button type="submit">GOO!!!</button>
+    </form>
 </body>
 </html>

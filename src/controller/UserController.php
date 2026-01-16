@@ -42,10 +42,38 @@ public function dashboard()
     
     
 }
-public function test(){
+public function test($id){
     echo $this->render('test', [
-        'test' => "test 2"
+        'id' => $id
     ]);
 }
 
+public function showCreateForm()
+{
+    return $this->render('create_user_form', []);
+}
+
+public function store()
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: /users/new');
+        exit;
+    }
+
+
+    $user = new \App\models\user();
+    $user->setUsername($_POST['username'] ?? '');
+    $user->setEmail($_POST['email'] ?? '');
+    $user->setPassword($_POST['password'] ?? '');
+    $user->setBio($_POST['bio'] ?? '');
+    $user->setDate(date('Y-m-d H:i:s'));
+
+    if ($user->create()) {
+        header('Location: /UserIndex');
+        exit;
+    } else {
+        header('Location: /users/new?error=1');
+        exit;
+    }
+}
 }
