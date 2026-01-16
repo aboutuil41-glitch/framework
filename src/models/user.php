@@ -23,7 +23,7 @@ protected $created_at;
     public function getEmail() { return $this->email; }
 
      public function setPassword($p) { $this->password = password_hash($p, PASSWORD_BCRYPT); }
-    public function getPassword() { return $this->username; }
+    public function getPassword() { return $this->password; }
 
     public function setBio($b) { $this->bio = $b; }
     public function getBio() { return $this->bio; }
