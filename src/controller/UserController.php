@@ -33,11 +33,19 @@ public function dashboard()
         echo "I'm " . $user['username'] . "<br>";
     }
 }
-     public function index()
-    {
-        $userModel = new User();
-        $this->view('create_user',[
-           'all' => $userModel->loadAll()]
-        );
-    }
+    public function index()
+{
+    $userModel = new User();
+    echo $this->render('create_user', [
+        'all' => $userModel->loadAll()
+    ]);
+    
+    
+}
+public function test(){
+    echo $this->render('test', [
+        'test' => "test 2"
+    ]);
+}
+
 }

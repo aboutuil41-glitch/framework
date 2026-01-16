@@ -4,7 +4,7 @@ namespace App\core;
 
 use PDO;
 
-use App\models\Database;
+use App\core\Database;
 
 abstract class BaseModel
 {
@@ -13,7 +13,7 @@ abstract class BaseModel
 
     public function __construct()
     {
-        $this->db = Database::getInstance();
+        $this->db = Database::getInstance()->getConnection();
     }
     
 public function getId(): ?int {
@@ -25,7 +25,7 @@ public function setId(int $id): void {
 
     public function loadAll(): array
     {
-        $stmt = $this->db->getConnection()->prepare(
+        $stmt = $this->db->prepare(
             "SELECT * FROM {$this->getTable()}"
         );
         $stmt->execute();
@@ -40,7 +40,7 @@ public function setId(int $id): void {
         $sql = "INSERT INTO {$this->getTable()} (" . implode(',', $columns) . ")
                 VALUES (" . implode(',', $placeholders) . ")";
 
-        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt = $this->db->prepare($sql);
 
         $data = [];
         foreach ($columns as $col) {
@@ -48,7 +48,7 @@ public function setId(int $id): void {
         }
 
         if ($stmt->execute($data)) {
-            $this->id = (int)$this->db->getConnection()->lastInsertId();
+            $this->id = (int)$this->db->lastInsertId();
             return true;
         }
         return false;
@@ -61,7 +61,7 @@ public function setId(int $id): void {
         $columns = $this->getColumns();
         $set = implode(', ', array_map(fn($c) => "$c = :$c", $columns));
 
-        $stmt = $this->db->getConnection()->prepare(
+        $stmt = $this->db->prepare(
             "UPDATE {$this->getTable()} SET $set WHERE id = :id"
         );
 
@@ -78,7 +78,7 @@ public function setId(int $id): void {
     {
         if (!$this->id) return false;
 
-        $stmt = $this->db->getConnection()->prepare(
+        $stmt = $this->db->prepare(
             "DELETE FROM {$this->getTable()} WHERE id = :id"
         );
         return $stmt->execute(['id' => $this->id]);

@@ -26,6 +26,7 @@ $router->post('user', function () {
 });
 
 $router->get('login', [AuthController::class, 'login']);
+$router->get('test', [UserController::class, 'test']);
 $router->post('login', [AuthController::class, 'login']);
 $router->delete('login', [AuthController::class, 'login']);
 

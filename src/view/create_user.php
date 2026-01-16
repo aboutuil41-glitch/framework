@@ -56,7 +56,9 @@
 </head>
 <body>
     <div class="container">
+        <h1>Welcome</h1>
         <div class="cards">
+            
             <?php foreach($all as $user): ?>
                 <div class="card">
                     <div class="username"><?= htmlspecialchars($user['username']) ?></div>
